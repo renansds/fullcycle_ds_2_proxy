@@ -29,17 +29,18 @@ app.get('/', (req, res) => {
   const query = 'SELECT * FROM people';
   connection.query(query, (error, results) => {
     if (error) {
-      console.log('Erro ao executar a consulta: ' + error);
-      res.sendStatus(500);
+      return res.status(500).json({
+        status: 'Error', 
+        data: [], 
+        message: "Erro ao consultar os dados!!!"
+      });    
     } else {
       let lista = '<h1>Full Cycle</h1>' + "<ul>"
       let names = '';
       for (const row of results) {
          names +=` <li>${row.name}</li> `
       }
-      
       res.status(200).send(lista.concat(names).concat('</ul>'));
-
     }
   });
 });
