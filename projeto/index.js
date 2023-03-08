@@ -29,10 +29,13 @@ app.get('/people', (req, res) => {
   const query = 'SELECT * FROM people';
   connection.query(query, (error, results) => {
     if (error) {
-      console.log('Erro ao executar a consulta: ' + error);
-      res.sendStatus(500);
+      return res.status(500).json({
+        status: 'Error', 
+        data: [], 
+        message: "Erro ao consultar os dados!!!"
+      });    
     } else {
-      res.json(results);
+      return res.status(200).json(results);
     }
   });
 });
