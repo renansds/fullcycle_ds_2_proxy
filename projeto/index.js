@@ -9,10 +9,10 @@ app.use(bodyParser.json());
 
 // Criar conexão com o banco de dados MySQL
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: 'db',
   user: 'root',
-  password: 'sua_senha_do_mysql',
-  database: 'seu_banco_de_dados'
+  password: 'mestre',
+  database: 'nodedb'
 });
 
 // Conectar ao banco de dados MySQL
@@ -25,7 +25,7 @@ connection.connect((error) => {
 });
 
 // Rota para listar todos os usuários
-app.get('/people', (req, res) => {
+app.get('/', (req, res) => {
   const query = 'SELECT * FROM people';
   connection.query(query, (error, results) => {
     if (error) {
@@ -35,15 +35,20 @@ app.get('/people', (req, res) => {
         message: "Erro ao consultar os dados!!!"
       });    
     } else {
-      return res.status(200).json(results);
+      let lista = '<h1>Full Cycle</h1>' + "<ul>"
+      let names = '';
+      for (const row of results) {
+         names +=` <li>${row.name}</li> `
+      }
+      res.status(200).send(lista.concat(names).concat('</ul>'));
     }
   });
 });
 
 // Rota para criar um novo usuário
 app.post('/people', (req, res) => {
-  const query = 'INSERT INTO people (id, name) VALUES (?, ?)';
-  const params = [req.body.name, req.body.email];
+  const query = 'INSERT INTO people (name) VALUES (?)';
+  const params = [req.body.name];
   connection.query(query, params, (error, result) => {
     if (error) {
       console.log('Erro ao executar a consulta: ' + error);
