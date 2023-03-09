@@ -1,14 +1,10 @@
 # fullcycle_ds_2_proxy
-Projeto referente aos desafios proposto em aula
+Desafio 2 criar uma aplicação com nginxp proxy reverso, e chamar a aplicação Nodejs. 
 
-# Entrar no container docker MySQL 
-Executar o comando abaixo para criar a table.
+O arquvio docker-compose.yaml contém as instruções e o serviços. 
 
-```
-use nodedb;
-
-create table people(name varchar(255));
-
-```
-
+Temos a seguinte estrutura: 
+    - Dentro da pasta db -> temos um arquivo `schema.sql` que faz a criação da tabela people 
+    - Dentro da pasta nginx -> Dockerfile e nginx.conf
+    - Dentro da pasta projeto -> Temos os arquivos referente a aplicação e também seu Dockerfile 
 

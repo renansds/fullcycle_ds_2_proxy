@@ -5,5 +5,6 @@ RUN npm install
 
 EXPOSE 3000
 
-CMD ["node", "index.js"]
+CMD ["sh", "-c", "sleep 30 && node index.js"]
+
 
