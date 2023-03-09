@@ -1,5 +1,4 @@
 # fullcycle_ds_2_proxy
-
 Desafio 2 criar uma aplicação com nginxp proxy reverso, e chamar a aplicação Nodejs. 
 
 O arquvio docker-compose.yaml contém as instruções e o serviços. 
