@@ -7,11 +7,12 @@ services:
     container_name: MySQL
     restart: always
     tty: true
-    volumes:
-      - ./mysql:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=nodedb
-      - MYSQL_ROOT_PASSWORD=mestre
+    - MYSQL_DATABASE=nodedb
+    - MYSQL_ROOT_PASSWORD=mestre
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./mysql:/var/lib/mysql
     networks:
       - nodenet
   nginx:
@@ -30,11 +31,13 @@ services:
       dockerfile: Dockerfile
     image: renaninfra/nodejs:prod
     container_name: nodejs
+    restart: always
     tty: true
     networks:
       - nodenet  
     depends_on:
       - db
+    command: sh -c "sleep 10 && node index.js"  
 networks:
   nodenet:
     driver: bridge
